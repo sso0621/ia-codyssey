@@ -125,19 +125,29 @@ a1b2c3d4e5f67890abcdef
 
 $ curl http://localhost:8080
 Hello Docker & VS Code!
+![8080 포트 매핑 실행 화면](./8080.png)
 
 # 8081 포트 바인드 마운트 실행 및 응답 확인
 $docker run -d -p 8081:80 -v${PWD}/index.html:/usr/share/nginx/html/index.html --name web-8081 my-web:1.0
 b2c3d4e5f67890abcdef12
 
+
 $ curl http://localhost:8081
 Hello Docker & VS Code!
+![8081 포트 바인드 마운트 실행 화면](./8081.png)
 
 # 볼륨 생성
 $ docker volume create my-vol
 my-vol
 
 # 1. 볼륨을 연결한 컨테이너 실행 후 데이터 생성
+$ docker run -d -p 8082:80 -v my-vol:/usr/share/nginx/html --name web-vol my-web:1.0
+014f776ee7af081c33f15f19aa26604e14f7dcece5e9116360b447f40d9b4a22
+
+$ docker exec -it web-vol sh -c "echo 'Hello Volume' > /usr/share/nginx/html/hello.txt && cat /usr/share/nginx/html/hello.txt"
+Hello Volume
+
+
 $ docker run -d -p 8082:80 -v my-vol:/usr/share/nginx/html --name web-vol my-web:1.0
 c3d4e5f67890abcdef1234
 
@@ -158,6 +168,8 @@ $ docker volume inspect my-vol
         "Mountpoint": "/var/lib/docker/volumes/my-vol/_data"
     }
 ]
+![볼륨](./vol_comfirm.png)
+
 
 # 2. 컨테이너 삭제 후 새 컨테이너에서 동일 볼륨의 데이터 유지 검증
 $ docker rm -f web-vol
@@ -167,7 +179,7 @@ $ docker run -d --name web-vol2 -v my-vol:/usr/share/nginx/html my-web:1.0
 d4e5f67890abcdef123456
 
 $ docker exec -it web-vol2 sh -c "cat /usr/share/nginx/html/hello.txt"
-hi
+Hello Volume
 
 # 실습 컨테이너 및 볼륨 자원 정리
 $ docker stop web-8080 web-8081 web-vol2
