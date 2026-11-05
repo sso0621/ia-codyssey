@@ -249,5 +249,5 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
    
 ![8080 포트 매핑 실행 화면](./8080.png)
 ![8081 포트 바인드 마운트 실행 화면](./8081.png)
-![볼륨](./vol_comfirm.png)
-![git hub push 화면](./git_push_comfirm.png)
+![볼륨 검증 화면](./vol_confirm.png)
+![git hub push 화면](./git_push_confirm.png)
