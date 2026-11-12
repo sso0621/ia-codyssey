@@ -1,0 +1,20 @@
+# 파이썬 캐시 파일 (컴파일된 바이트코드)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 가상환경 (venv 사용 시)
+venv/
+.venv/
+env/
+
+# VS Code / IDE 설정 파일
+.vscode/
+.idea/
+
+# OS 자동 생성 파일
+.DS_Store
+Thumbs.db
+
+# 기타 환경변수 및 보안 데이터
+.env
