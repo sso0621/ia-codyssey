@@ -59,8 +59,7 @@ python3 main.py
 
 4. **점수 확인**
    - 현재까지 달성한 최고 점수(`best_score`) 기록을 조회합니다.
-
-   ![점수 확인 및 종료 화면](./quiz-game.score.png)
+   ![점수 확인 화면](./quiz-game.score.png)
 
 5. **종료**
    - `5`번을 선택하면 안전하게 데이터 저장 상태를 확인한 뒤 프로그램을 종료합니다.
@@ -138,8 +137,9 @@ ia-codyssey/
     ├── quiz-game2.png         # 퀴즈 풀이 및 정오답 판정 스크린샷
     ├── quiz-game.add.png      # 신규 퀴즈 추가 기능 스크린샷
     ├── quiz-game.list.png     # 전체 퀴즈 목록 조회 스크린샷
-    ├── quiz-game.score.end.png # 최고 점수 확인 스크린샷
-    └── quiz-game.end.png      # 프로그램 종료 스크린샷
+    ├── quiz-game.score.png    # 최고 점수 확인 스크린샷
+    ├── quiz-game.end.png      # 프로그램 종료 스크린샷
+    └── git-clone-pull.png     # 원격 저장소 Clone 및 Pull 실행 터미널 스크린샷
 ```
 
 ### 요구사항 변경 시 수정 영향도 안내
@@ -154,13 +154,52 @@ ia-codyssey/
 
 ## 8. Git 협업 및 버전 관리 이력
 
-### 커밋 및 브랜치 병합 이력 증빙
+### 8.1 원격 저장소 정보 및 Clone / Pull 실행 증빙 
+- **GitHub 원격 저장소 URL**: `https://github.com/sso0621/ia-codyssey.git`
+- **원격 저장소 복제(`clone`) 및 최신화(`pull`) 실행 명령어**:
+```bash
+git clone [https://github.com/sso0621/ia-codyssey.git](https://github.com/sso0621/ia-codyssey.git)
+git pull origin main
+```
+- **터미널 Clone / Pull 실행 캡처**:
+![Git Clone 및 Pull 실행 화면](./git-clone-pull.png)
+
+### 8.2 브랜치 전략, 분리 목적 및 병합(Merge) 정책 
+- **브랜치 구성**:
+  - `main`: 즉시 실행 및 제출 가능한 안정화된 코드와 문서만을 유지하는 기본 배포 브랜치
+  - `feature/*` (예: `feature/quiz-game`, `feature/docs-update`): 신규 기능 개발, 예외 처리 보완, 문서 고도화를 독립적으로 수행하는 작업 브랜치
+- **브랜치 분리 목적 (협업 워크플로우 관점)**:
+  1. **안정 버전 격리**: 기능 개발 중 발생하는 문법 오류나 미완성 로직이 `main` 브랜치의 정상 동작을 깨뜨리지 않도록 격리합니다.
+  2. **병렬 작업 및 변경 추적 용이성**: 기능 구현(`feature/quiz-game`)과 문서화(`feature/docs-update`)를 브랜치 단위로 분리하여 작업 목적별 변경 내역을 명확하게 추적하고 코드 리뷰가 가능하도록 합니다.
+- **병합(Merge)의 의미 및 병합 시 고려사항**:
+  - **의미**: 기능 브랜치에서 단위 테스트와 검증이 완료된 작업 결과를 `main` 브랜치로 통합하여 프로젝트의 공식 최신 상태를 동기화하는 절차입니다.
+  - **병합 시 고려사항**:
+    1. **사전 최신화 및 충돌(Conflict) 방지**: 병합 전 `git pull origin main`으로 원격 저장소의 최신 커밋을 먼저 반영하여 동일 파일 수정으로 인한 병합 충돌을 예방합니다.
+    2. **동작 검증 후 병합**: `python3 main.py` 실행 및 `state.json` 입출력 정상 여부를 확인한 뒤에만 `main`으로 병합합니다.
+    3. **병합 이력 보존**: `git merge --no-ff` 옵션을 사용하여 브랜치의 분기와 병합 시점이 커밋 그래프에 명확히 기록되도록 관리합니다.
+
+### 8.3 커밋 단위 및 메시지 규칙
+- **권장 커밋 단위 (Atomic Commit 원칙)**:
+  - 하나의 커밋에는 **하나의 논리적 작업 단위(단일 기능 추가, 단일 버그 수정, 단일 문서 보완)**만 포함합니다.
+  - 여러 변경 사항을 한 커밋에 섞지 않고 기능 단위로 작게 나누어 커밋함으로써, 오류 발생 시 특정 커밋만 안전하게 되돌리거나(`git revert`) 변경 이력을 쉽게 파악할 수 있도록 관리합니다.
+- **커밋 메시지 형식 (`타입(대상): 설명`)**:
+  - 형식: `<타입>(<대상>): <변경 내용 요약>`
+  - **타입(Type) 규칙**:
+    | 타입 | 사용 목적 | 작성 예시 |
+    | :--- | :--- | :--- |
+    | `Feat` | 새로운 기능 또는 메서드 추가 | `Feat(quiz): 사용자 정의 퀴즈 추가 및 state.json 즉시 저장 구현` |
+    | `Fix` | 버그, 입력 오류, 파일 예외 처리 수정 | `Fix(validation): 범위 외 숫자 및 Ctrl+C 종료 예외 처리 보완` |
+    | `Refactor` | 기능 변경 없는 클래스/폴더 구조 개선 | `Refactor(core): Quiz 및 QuizGame 클래스 책임 분리` |
+    | `Docs` | `README.md` 문서 및 실행 스크린샷 추가 | `Docs(readme): Git 협업 컨벤션 및 실행 스크린샷 추가` |
+    | `Chore` | `.gitignore`, 디렉토리 등 환경 설정 | `Chore(init): week2 디렉토리 및 .gitignore 초기 설정` |
+
+### 8.4 커밋 및 브랜치 병합 이력 증빙 (총 11개 커밋)
 ```text
 $ git branch -a
 * main
   remotes/origin/main
 
-$ git log --oneline --graph -n 10
+$ git log --oneline --graph
 *   14a7d14 (HEAD -> main, origin/main) Refactor: week2 폴더 구조 및 문서·스크린샷 정리
 *   cbe4352 Merge branch 'main' of [https://github.com/sso0621/ia-codyssey](https://github.com/sso0621/ia-codyssey)
 |\
