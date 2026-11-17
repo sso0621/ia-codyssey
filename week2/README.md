@@ -59,6 +59,7 @@ python3 main.py
 
 4. **점수 확인**
    - 현재까지 달성한 최고 점수(`best_score`) 기록을 조회합니다.
+   
    ![점수 확인 및 종료 화면](./quiz-game.score.end.png)
 
 5. **종료**
