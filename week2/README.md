@@ -193,22 +193,38 @@ git pull origin main
     | `Docs` | `README.md` 문서 및 실행 스크린샷 추가 | `Docs(readme): Git 협업 컨벤션 및 실행 스크린샷 추가` |
     | `Chore` | `.gitignore`, 디렉토리 등 환경 설정 | `Chore(init): week2 디렉토리 및 .gitignore 초기 설정` |
 
-### 8.4 커밋 및 브랜치 병합 이력 증빙 (총 11개 커밋)
+### 8.4 커밋 및 브랜치 병합 이력 증빙 (총 23개 커밋)
 ```text
 $ git branch -a
+  feature/docs-convention
 * main
   remotes/origin/main
 
 $ git log --oneline --graph
-*   14a7d14 (HEAD -> main, origin/main) Refactor: week2 폴더 구조 및 문서·스크린샷 정리
-*   cbe4352 Merge branch 'main' of [https://github.com/sso0621/ia-codyssey](https://github.com/sso0621/ia-codyssey)
-|\
-| * 8f21a03 Docs: week1 실습 과제 정리
-* | 6a91c4e Docs: week2 README.md 초안 작성
-* | 5d80b12 Fix: state.json 손상 시 기본 데이터 초기화 예외 처리 추가
-* | 4c73e91 Feat: 최고 점수(best_score) 확인 및 자동 갱신 로직 구현
-* | 3b62d80 Feat: 사용자 정의 퀴즈 추가 및 state.json 저장 기능 구현
-* | 2a51c79 Feat: 퀴즈 풀이 루프 및 입력 검증(get_valid_integer) 구현
-* | 1f40b68 Feat: Quiz 및 QuizGame 기본 클래스 골격 작성
-* | 0e39a57 Chore: week2 디렉토리 및 .gitignore 초기 설정
+*   7c2a5d2 (HEAD -> main) Merge branch 'feature/docs-convention' into main
+|\  
+| * 6cd88a8 (feature/docs-convention) Docs(readme): Git 협업 컨벤션 문서화 및 clone/pull 실행 캡처 추가
+|/  
+* 310546f (origin/main) Docs: 점수 확인 스크린샷(quiz-game.score.png) 추가 및 README 경로 수정
+* cb514a3 Docs: week2 README 파일 수정
+* c9b6246 Docs: week2 README 파일 수정
+* f2a1ac8 Docs: week2 README 파일 수정
+* 4b86f7a Docs: week2 README 파일 수정
+* 6d6f248 Docs: week2 README 스크린샷 추가 및 퀴즈 데이터 업데이트
+* 14a7d14 Refactor: week2 폴더 구조 및 문서·스크린샷 정리
+* cbe4352 Docs: week2/README.md 및 state.json 업데이트
+* de37b7f Docs: 제출 체크리스트 기준 week2/README.md 업데이트
+*   d0a062f Merge branch 'main' of [https://github.com/sso0621/ia-codyssey](https://github.com/sso0621/ia-codyssey)
+|\  
+| * bbe420b docs: add practice report zip archive
+| * 3da13b9 docs: add zipped practice report archive
+| * 31266ab fix: match exact image file names in markdown
+| * 615bb47 image upload lately
+| * 8b440fe docs: add final volume persistence screenshot and update README
+| * 1362d19 docs: finalize README for 100% evaluation pass
+| * 85f19a3 docs: Update README for evaluation
+| * 0c4650a docs: Complete Linux & Docker basic practice report
+* bd3cf72 Refactor: week2 폴더 생성 및 퀴즈 게임 파일 이동
+* 6124e4c Docs: README.md 작성 (속담 및 사자성어 퀴즈 주제 반영)
+* f9f55f9 Refactor: 대중적인 속담 및 사자성어 주제 퀴즈 데이터로 교체
 ```
